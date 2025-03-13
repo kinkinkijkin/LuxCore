@@ -139,7 +139,12 @@ public:
 	}
 
 	bool IsAMDPlatform() const {
-		return !strcmp(GetOpenCLPlatform().c_str(), "Advanced Micro Devices, Inc.");
+		if (!strcmp(GetOpenCLPlatform().c_str(), "Advanced Micro Devices, Inc."))
+			return true;
+		else if (!strcmp(GetOpenCLPlatform().c_str(), "Mesa/X.org"))
+			return true;
+		else
+			return false;
 	}
 
 	bool IsNVIDIAPlatform() const {
