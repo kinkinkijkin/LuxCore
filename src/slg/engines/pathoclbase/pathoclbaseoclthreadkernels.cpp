@@ -68,7 +68,7 @@ void PathOCLBaseOCLRenderThread::GetKernelParamters(
 	params.push_back("-D RENDER_ENGINE_" + renderEngineType);
 	params.push_back("-D PARAM_RAY_EPSILON_MIN=" + ToString(epsilonMin) + "f");
 	params.push_back("-D PARAM_RAY_EPSILON_MAX=" + ToString(epsilonMax) + "f");
-	params.push_back("-D LUXCORE_GENERIC_OPENCL");
+	params.push_back("-D LUXCORE_AMD_OPENCL");
 
 	const OpenCLDeviceDescription *oclDeviceDesc = dynamic_cast<const OpenCLDeviceDescription *>(intersectionDevice->GetDeviceDesc());
 //if (oclDeviceDesc) {
