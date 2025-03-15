@@ -54,6 +54,8 @@ DeviceType OpenCLDeviceDescription::GetOCLDeviceType(const cl_device_id oclDevic
 	cl_device_type type;
 	CHECK_OCL_ERROR(clGetDeviceInfo(oclDevice, CL_DEVICE_TYPE, sizeof(cl_device_type), &type, nullptr));
 
+	LR_LOG(deviceContext, this->GetOpenCLPlatform());
+
 	switch (type) {
 		case CL_DEVICE_TYPE_ALL:
 			return DEVICE_TYPE_OPENCL_ALL;
@@ -176,11 +178,7 @@ void OpenCLDevice::CompileProgram(HardwareDeviceProgram **program,
 	const string oclProgramSource =
 		luxrays::ocl::KernelSource_ocldevice_funcs +
 		programSource;
-
-	const OpenCLDeviceDescription *oclDeviceDesc1 = dynamic_cast<const OpenCLDeviceDescription *>(intersectionDevice->GetDeviceDesc());
-	LR_LOG(deviceContext, oclDeviceDesc1->GetOpenCLPlatform())
-	LR_LOG(deviceContext, "in compileprogram")
-
+	LR_LOG(deviceContext, "in compileprogram");
 	bool cached;
 	string error;
 	cl_program oclProgram = kernelCache->Compile(oclContext, deviceDesc->GetOCLDevice(),
@@ -218,6 +216,8 @@ void OpenCLDevice::GetKernel(HardwareDeviceProgram *program,
 	OpenCLDeviceProgram *oclDeviceProgram = dynamic_cast<OpenCLDeviceProgram *>(program);
 	assert (oclDeviceProgram);
 
+	LR_LOG(deviceContext, "in getkernel");
+
 	cl_int error;
 	cl_kernel k = clCreateKernel(oclDeviceProgram->Get(), kernelName.c_str(), &error);
 	CHECK_OCL_ERROR(error);
@@ -244,6 +244,8 @@ void OpenCLDevice::SetKernelArg(HardwareDeviceKernel *kernel,
 	assert (kernel);
 	assert (!kernel->IsNull());
 
+	LR_LOG(deviceContext, "in setkernelarg");
+
 	OpenCLDeviceKernel *oclDeviceKernel = dynamic_cast<OpenCLDeviceKernel *>(kernel);
 	assert (oclDeviceKernel);
 
@@ -255,12 +257,10 @@ void OpenCLDevice::SetKernelArgBuffer(HardwareDeviceKernel *kernel,
 	assert (kernel);
 	assert (!kernel->IsNull());
 
+	LR_LOG(deviceContext, "in setkernelargbuffer");
+
 	OpenCLDeviceKernel *oclDeviceKernel = dynamic_cast<OpenCLDeviceKernel *>(kernel);
 	assert (oclDeviceKernel);
-
-	const OpenCLDeviceDescription *oclDeviceDesc = dynamic_cast<const OpenCLDeviceDescription *>(intersectionDevice->GetDeviceDesc());
-	LR_LOG(deviceContext, oclDeviceDesc->GetOpenCLPlatform())
-	LR_LOG(deviceContext, "in setkernelargbuffer")
 
 	const OpenCLDeviceBuffer *oclDeviceBuff = dynamic_cast<const OpenCLDeviceBuffer *>(buff);
 
