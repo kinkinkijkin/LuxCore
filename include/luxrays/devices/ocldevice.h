@@ -134,7 +134,6 @@ public:
 		CHECK_OCL_ERROR(clGetPlatformInfo(oclPlatform, CL_PLATFORM_VENDOR, 0, nullptr, &platformNameSize));
 		char *platformNameChar = (char *)alloca(platformNameSize * sizeof(char));
 		CHECK_OCL_ERROR(clGetPlatformInfo(oclPlatform, CL_PLATFORM_VENDOR, platformNameSize, platformNameChar, nullptr));
-		printf(platformNameChar);
 
 		return boost::trim_copy(std::string(platformNameChar));
 	}
