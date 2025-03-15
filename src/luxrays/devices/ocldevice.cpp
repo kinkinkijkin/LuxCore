@@ -54,8 +54,6 @@ DeviceType OpenCLDeviceDescription::GetOCLDeviceType(const cl_device_id oclDevic
 	cl_device_type type;
 	CHECK_OCL_ERROR(clGetDeviceInfo(oclDevice, CL_DEVICE_TYPE, sizeof(cl_device_type), &type, nullptr));
 
-	LR_LOG(deviceContext, this->GetOpenCLPlatform());
-
 	switch (type) {
 		case CL_DEVICE_TYPE_ALL:
 			return DEVICE_TYPE_OPENCL_ALL;
