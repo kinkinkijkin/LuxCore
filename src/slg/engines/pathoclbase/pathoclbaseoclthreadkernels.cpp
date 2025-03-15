@@ -71,14 +71,14 @@ void PathOCLBaseOCLRenderThread::GetKernelParamters(
 	params.push_back("-D LUXCORE_GENERIC_OPENCL");
 
 	const OpenCLDeviceDescription *oclDeviceDesc = dynamic_cast<const OpenCLDeviceDescription *>(intersectionDevice->GetDeviceDesc());
-#if (oclDeviceDesc) {
-#		if (oclDeviceDesc->IsAMDPlatform())
-#			params.push_back("-D LUXCORE_AMD_OPENCL");
-#		else if (oclDeviceDesc->IsNVIDIAPlatform())
-#			params.push_back("-D LUXCORE_NVIDIA_OPENCL");
-#		else
-#			params.push_back("-D LUXCORE_GENERIC_OPENCL");
-#	}
+//if (oclDeviceDesc) {
+//		if (oclDeviceDesc->IsAMDPlatform())
+//			params.push_back("-D LUXCORE_AMD_OPENCL");
+//		else if (oclDeviceDesc->IsNVIDIAPlatform())
+//			params.push_back("-D LUXCORE_NVIDIA_OPENCL");
+//		else
+//			params.push_back("-D LUXCORE_GENERIC_OPENCL");
+//	}
 }
 
 string PathOCLBaseOCLRenderThread::GetKernelSources() {
