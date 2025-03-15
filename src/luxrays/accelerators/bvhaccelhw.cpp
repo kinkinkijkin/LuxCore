@@ -163,8 +163,8 @@ public:
 		// Compile kernel sources
 		//----------------------------------------------------------------------
 		const OpenCLDeviceDescription *oclDeviceDesc = dynamic_cast<const OpenCLDeviceDescription *>(device.GetDeviceDesc());
-		LR_LOG(deviceContext, "GetKernelParameters")
-		LR_LOG(deviceContext, oclDeviceDesc->GetOpenCLPlatform())
+		LR_LOG(deviceContext, "BVHKernel");
+		LR_LOG(deviceContext, oclDeviceDesc->GetOpenCLPlatform());
 		// Compile options
 		vector<string> opts;
 		opts.push_back("-D LUXRAYS_OPENCL_KERNEL");

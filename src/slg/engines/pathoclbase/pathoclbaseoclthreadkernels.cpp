@@ -69,11 +69,11 @@ void PathOCLBaseOCLRenderThread::GetKernelParamters(
 	params.push_back("-D RENDER_ENGINE_" + renderEngineType);
 	params.push_back("-D PARAM_RAY_EPSILON_MIN=" + ToString(epsilonMin) + "f");
 	params.push_back("-D PARAM_RAY_EPSILON_MAX=" + ToString(epsilonMax) + "f");
-	params.push_back("-D LUXCORE_AMD_OPENCL");
+	params.push_back("-D LUXCORE_NVIDIA_OPENCL");
 
 	const OpenCLDeviceDescription *oclDeviceDesc = dynamic_cast<const OpenCLDeviceDescription *>(intersectionDevice->GetDeviceDesc());
-	SLG_LOG("GetKernelParameters")
-	SLG_LOG(oclDeviceDesc->GetOpenCLPlatform())
+	SLG_LOG("GetKernelParameters, pretending to be nvidia");
+	SLG_LOG(oclDeviceDesc->GetOpenCLPlatform());
 //if (oclDeviceDesc) {
 //		if (oclDeviceDesc->IsAMDPlatform())
 //			params.push_back("-D LUXCORE_AMD_OPENCL");
