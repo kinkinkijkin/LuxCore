@@ -166,8 +166,6 @@ void OpenCLDevice::CompileProgram(HardwareDeviceProgram **program,
 #elif defined (__linux__)
 	oclProgramParameters.push_back("-D LUXRAYS_OS_LINUX");
 #endif
-	LR_LOG(deviceContext, GetOpenCLPlatform())
-	LR_LOG(deviceContext, "in compileprogram")
 
 	oclProgramParameters.insert(oclProgramParameters.end(),
 			additionalCompileOpts.begin(), additionalCompileOpts.end());
@@ -178,6 +176,10 @@ void OpenCLDevice::CompileProgram(HardwareDeviceProgram **program,
 	const string oclProgramSource =
 		luxrays::ocl::KernelSource_ocldevice_funcs +
 		programSource;
+
+	const OpenCLDeviceDescription *oclDeviceDesc1 = dynamic_cast<const OpenCLDeviceDescription *>(intersectionDevice->GetDeviceDesc());
+	LR_LOG(deviceContext, oclDeviceDesc1->GetOpenCLPlatform())
+	LR_LOG(deviceContext, "in compileprogram")
 
 	bool cached;
 	string error;
@@ -216,9 +218,6 @@ void OpenCLDevice::GetKernel(HardwareDeviceProgram *program,
 	OpenCLDeviceProgram *oclDeviceProgram = dynamic_cast<OpenCLDeviceProgram *>(program);
 	assert (oclDeviceProgram);
 
-	LR_LOG(deviceContext, GetOpenCLPlatform())
-	LR_LOG(deviceContext, "in getkernel")
-
 	cl_int error;
 	cl_kernel k = clCreateKernel(oclDeviceProgram->Get(), kernelName.c_str(), &error);
 	CHECK_OCL_ERROR(error);
@@ -232,9 +231,6 @@ u_int OpenCLDevice::GetKernelWorkGroupSize(HardwareDeviceKernel *kernel) {
 
 	OpenCLDeviceKernel *oclDeviceKernel = dynamic_cast<OpenCLDeviceKernel *>(kernel);
 	assert (oclDeviceKernel);
-
-	LR_LOG(deviceContext, GetOpenCLPlatform())
-	LR_LOG(deviceContext, "in getkernelworkgroupsize")
 
 	size_t size;
 	CHECK_OCL_ERROR(clGetKernelWorkGroupInfo(oclDeviceKernel->oclKernel, deviceDesc->GetOCLDevice(),
@@ -251,9 +247,6 @@ void OpenCLDevice::SetKernelArg(HardwareDeviceKernel *kernel,
 	OpenCLDeviceKernel *oclDeviceKernel = dynamic_cast<OpenCLDeviceKernel *>(kernel);
 	assert (oclDeviceKernel);
 
-	LR_LOG(deviceContext, GetOpenCLPlatform())
-	LR_LOG(deviceContext, "in setkernelarg")
-
 	CHECK_OCL_ERROR(clSetKernelArg(oclDeviceKernel->oclKernel, index, size, arg));
 }
 
@@ -265,7 +258,8 @@ void OpenCLDevice::SetKernelArgBuffer(HardwareDeviceKernel *kernel,
 	OpenCLDeviceKernel *oclDeviceKernel = dynamic_cast<OpenCLDeviceKernel *>(kernel);
 	assert (oclDeviceKernel);
 
-	LR_LOG(deviceContext, GetOpenCLPlatform())
+	const OpenCLDeviceDescription *oclDeviceDesc = dynamic_cast<const OpenCLDeviceDescription *>(intersectionDevice->GetDeviceDesc());
+	LR_LOG(deviceContext, oclDeviceDesc->GetOpenCLPlatform())
 	LR_LOG(deviceContext, "in setkernelargbuffer")
 
 	const OpenCLDeviceBuffer *oclDeviceBuff = dynamic_cast<const OpenCLDeviceBuffer *>(buff);
