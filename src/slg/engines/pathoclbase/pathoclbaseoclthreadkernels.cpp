@@ -34,6 +34,7 @@
 #include "slg/engines/pathoclbase/pathoclbase.h"
 #include "slg/samplers/sobol.h"
 
+
 using namespace std;
 using namespace luxrays;
 using namespace slg;
@@ -71,6 +72,8 @@ void PathOCLBaseOCLRenderThread::GetKernelParamters(
 	params.push_back("-D LUXCORE_AMD_OPENCL");
 
 	const OpenCLDeviceDescription *oclDeviceDesc = dynamic_cast<const OpenCLDeviceDescription *>(intersectionDevice->GetDeviceDesc());
+	SLG_LOG("GetKernelParameters")
+	SLG_LOG(oclDeviceDesc->GetOpenCLPlatform())
 //if (oclDeviceDesc) {
 //		if (oclDeviceDesc->IsAMDPlatform())
 //			params.push_back("-D LUXCORE_AMD_OPENCL");
