@@ -39,7 +39,7 @@ class BVHKernel : public HardwareIntersectionKernel {
 public:
 	BVHKernel(HardwareIntersectionDevice &dev, const BVHAccel &bvh) :
 		HardwareIntersectionKernel(dev), kernel(nullptr) {
-		//const Context *deviceContext = device.GetContext();
+		const Context *deviceContext = device.GetContext();
 		//const string &deviceName(device.GetName());
 
 		size_t maxNodeCount = 0;
@@ -162,9 +162,9 @@ public:
 		//----------------------------------------------------------------------
 		// Compile kernel sources
 		//----------------------------------------------------------------------
-		const OpenCLDeviceDescription *oclDeviceDesc = dynamic_cast<const OpenCLDeviceDescription *>(device->GetDeviceDesc());
-		SLG_LOG("GetKernelParameters")
-		SLG_LOG(oclDeviceDesc->GetOpenCLPlatform())
+		const OpenCLDeviceDescription *oclDeviceDesc = dynamic_cast<const OpenCLDeviceDescription *>(device.GetDeviceDesc());
+		LR_LOG(deviceContext, "GetKernelParameters")
+		LR_LOG(deviceContext, oclDeviceDesc->GetOpenCLPlatform())
 		// Compile options
 		vector<string> opts;
 		opts.push_back("-D LUXRAYS_OPENCL_KERNEL");
